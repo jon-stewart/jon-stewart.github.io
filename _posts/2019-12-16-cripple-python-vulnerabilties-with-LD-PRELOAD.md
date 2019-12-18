@@ -7,6 +7,8 @@ tags:
 related: false
 ---
 
+A novel use for LD_PRELOAD when exploiting Python vulnerabilities
+
 On Linux the LD_PRELOAD environmental variable (or /etc/ld.so.preload file) will load the specified shared library files first, selectively overriding functions of any other library found in the LD_LIBRARY_PATH.  This is useful for debugging, patching bugs, and [escalating privileges to root](http://legalhackers.com/advisories/Nginx-Exploit-Deb-Root-PrivEsc-CVE-2016-1247.html).
 
 A novel idea is to use LD_PRELOAD to cripple certain Python vulnerabilities.  Consider the following vulnerable Flask application that allows arbitrary execution of Python code within the process.
@@ -25,7 +27,7 @@ def index():
             eval(request.cookies['eval'])
 
         if 'pickle' in request.cookies:
-            eval(b64decode(request.cookies['pickle']))
+            pickle.loads(b64decode(request.cookies['pickle']))
     except Exception as e:
         print(e)
 
@@ -33,7 +35,7 @@ def index():
 app.run()
 ```
 
-Unlike PHP and Java, Python allows the process environmental variables to change at runtime.  Child process inherit the environment from the parent, so by setting the LD_PRELOAD variable we can poison processes created via the vulnerability.  Overriding the `_init` [function](http://www.faqs.org/docs/Linux-HOWTO/Program-Library-HOWTO.html#INIT-AND-CLEANUP) it is possible to kill child process as the linker attempts to load shared library.
+Unlike PHP and Java, Python allows the process environmental variables to change at runtime.  Child process inherit the environment from the parent, so by setting the LD_PRELOAD variable we can poison processes created via the vulnerability.  By overriding the `_init` [function](http://www.faqs.org/docs/Linux-HOWTO/Program-Library-HOWTO.html#INIT-AND-CLEANUP) it is possible to kill new child process when the linker attempts to load shared libraries.
 
 ```c
 #include <stdlib.h>
