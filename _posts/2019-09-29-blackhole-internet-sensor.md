@@ -18,4 +18,4 @@ Sample code using TPROXY can be found at [github](https://github.com/jon-stewart
 
 Hook the sensor up to Apache Kafka and you now have a pipeline for the deluge of internet noise that you are about to receive.  The real trick is being able to filter out interesting and relevant data.  An appropriate analogy is panning for gold in sewage.
 
-Some a la [GreyNoise](https://greynoise.io) view this data as valuable in so far as it is worthless, 'anti-intelligence' that can be best used as a filter.  Whether this applies to honeypots in general or just sensors depends on how long one has been working with them.
+Some a la [GreyNoise](https://greynoise.io) view this data as valuable in so far as it is worthless, 'anti-intelligence' that is best used as a filter.
