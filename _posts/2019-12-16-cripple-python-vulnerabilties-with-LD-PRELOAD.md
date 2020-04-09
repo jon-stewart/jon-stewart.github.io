@@ -11,7 +11,7 @@ A novel use for LD_PRELOAD when exploiting Python vulnerabilities
 
 On Linux the LD_PRELOAD environmental variable (or /etc/ld.so.preload file) will load the specified shared library files first, selectively overriding functions of any other library found in the LD_LIBRARY_PATH.  This is useful for debugging, patching bugs, and [escalating privileges to root](http://legalhackers.com/advisories/Nginx-Exploit-Deb-Root-PrivEsc-CVE-2016-1247.html).
 
-A novel idea is to use LD_PRELOAD to cripple certain Python vulnerabilities.  Consider the following vulnerable Flask application that allows arbitrary execution of Python code within the process.
+A novel idea is to use LD_PRELOAD to cripple Python vulnerabilities that allow code execution in the same process.  The following arbitrarily vulnerable Flask app offers an example.
 
 ```python
 from base64 import b64decode
@@ -50,7 +50,7 @@ _init() {
 gcc -fPIC -shared -nostartfiles -o .so src.c
 ```
 
-To cripple the vulnerability, download the shared library and set the LD_PRELOAD environment variable.
+To cripple the vulnerability, use the following Python script to download the shared library and set the LD_PRELOAD environment variable.
 
 ```python
 from base64 import b64encode
