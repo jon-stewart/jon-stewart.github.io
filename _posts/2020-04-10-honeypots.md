@@ -19,13 +19,13 @@ There are considerations to be made in regard to the design and operation of hon
 
 - **Honeypot are noisy.**  A honeypot will attract a tsunami of traffic which will largely consist of scanning and automated low effort attacks.  The challenge is finding value in the resulting noise.  Or perhaps the value of honeypot data is in its use as 'anti-intelligence', a filter for other traffic.
 - **Centralised data management.**  Filtering is only going to be possible if honeypot data is stored in a centralised location - never mind the fact that writing data to local logs files will not scale as more honeypot are employed.  Consider using data pipelines and the ELK stack.
-- **Honeypot should be isolated.** The database and visualisation software will constitute a support infrastructure for the honeypot that should be secured and kept isolated, preferably on a different account.  Hosting companies will close accounts if complaints are received about questionable activities originating from the honeypot.
+- **Honeypot should be isolated.** Protect instructure by keeping honeypot in an isolated network, and even a separate account.  Hosting companies will close accounts if complaints are received about questionable activities originating from the honeypot.
 - **Deployment locations can have a significant effect on the data collected.**  The IP addresses associated with countries may be included or excluded from certain attacks.  A Cisco switch honeypot will not be believable if running on cloud hosting.
 - **Collecting malware can be a liability.**  Malware must be safely and securely stored - illegal in some countries - and isolated from other infrastructure to minimise the risk of accidental execution.  Samples will be as numerous as attack traffic and you will want to filter out duplicates - I suggest the use of [SSDeep](https://ssdeep-project.github.io/ssdeep/index.html) with its fuzzy hashing.
 
 # Design
 
-Categorising honeypot by the level of interaction they offer attackers is a great way of approaching honeypot construction.  Interestingly the transition from low to high interaction overlaps nicely with honeypot believability.
+Categorising honeypot by the level of interaction they offer attackers is a great way of approaching honeypot design.  The transition from low to high interaction overlaps nicely with honeypot believability - another important quality.
 
 ## Low Interaction
 
@@ -49,7 +49,7 @@ Why emulate when it is possible to hook a real OS to the vulnerable paths.  This
 
 ![high interaction honeypot](/assets/images/honeypot/highInteractionPot.png)
 
-But beware, there is great danger in giving attackers unrestricted OS access.  Potentially greater reward comes with the higher risk. The honeypot could be used in the propagation of malware and the exploitation of real vulnerable systems.  This could lead to the loss of a hosting account or your job if your organisations customers are attacked.  It is also important that the OS contains what the attacker expects; the vulnerable application that was compromised and state changes they may have previously made.
+But beware, there is great danger in giving attackers unrestricted OS access.  Potentially greater reward comes with greater risk. The honeypot could be used in the propagation of malware and the exploitation of real vulnerable systems.  This could lead to the loss of a hosting account or your job if your organisations customers are attacked.  It is also important that the OS contains what the attacker expects; the vulnerable application that was compromised and state changes they may have previously made.
 
 ## Pure
 
