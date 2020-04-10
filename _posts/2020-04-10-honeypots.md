@@ -18,14 +18,14 @@ The information captured comprises Tactics, Techniques, and Procedures ([TTP](ht
 There are considerations to be made in regard to the design and operation of honeypot.
 
 - **Honeypot are noisy.**  A honeypot will attract a tsunami of traffic which will largely consist of scanning and automated low effort attacks.  The challenge is finding value in the resulting noise.  Or perhaps the value of honeypot data is in its use as 'anti-intelligence', a filter for other traffic.
-- **Centralised data management.**  Filtering is only going to be possible if honeypot data is stored in a centralised location - never mind the fact that writing data to local logs files will not scale as more honeypot are employed.  Consider using data pipelines and the ELK stack.
-- **Honeypot should be isolated.** Protect instructure by keeping honeypot in an isolated network, and even a separate account.  Hosting companies will close accounts if complaints are received about questionable activities originating from the honeypot.
-- **Deployment locations can have a significant effect on the data collected.**  The IP addresses associated with countries may be included or excluded from certain attacks.  A Cisco switch honeypot will not be believable if running on cloud hosting.
-- **Collecting malware can be a liability.**  Malware must be safely and securely stored - illegal in some countries - and isolated from other infrastructure to minimise the risk of accidental execution.  Samples will be as numerous as attack traffic and you will want to filter out duplicates - I suggest the use of [SSDeep](https://ssdeep-project.github.io/ssdeep/index.html) with its fuzzy hashing.
+- **Centralise the data.**  Filtering is only going to be possible if honeypot data is stored in a centralised location - never mind the fact that writing data to local logs files will not scale as more honeypot are employed.  Consider using data pipelines and the ELK stack.
+- **Keep Isolated.** Protect instructure by keeping the honeypot in an isolated network and consider using a separate hosting account.  Hosting companies will close accounts if complaints are received about questionable activities originating from the honeypot.
+- **Deployment matters.** The deployment location of a honeypot can have a significant effect on the data collected.  The IP addresses associated with countries may be included or excluded from certain attacks.  There will be few if any attacks against a Cisco switch honeypot running on cloud hosting.
+- **Collecting malware can be a liability.**  Malware must be safely and securely stored - illegal in some countries - and isolated from other infrastructure to minimise the risk of accidental execution.  Samples will be as numerous as attack traffic and it can be a challenge to filter out duplicates.
 
 # Design
 
-Categorising honeypot by the level of interaction they offer attackers is a great way of approaching honeypot design.  The transition from low to high interaction overlaps nicely with honeypot believability - another important quality.
+Categorising honeypot by the level of interaction they offer attackers is a helpful way of approaching honeypot design.  The transition from low to high interaction overlaps nicely with another important quality - believability.
 
 ## Low Interaction
 
